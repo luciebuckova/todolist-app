@@ -1,0 +1,13 @@
+<%- include ('partials/header.ejs') %>
+<form class="edit-task" action="/update" method="POST">
+  <input
+    class="input"
+    type="text"
+    name="editedTask"
+    id="editedTask"
+    value="<%= tasks[task] %>"
+  />
+  <input type="hidden" name="taskId" value="<%= task %>" />
+  <button type="submit" class="btn" id="submit">Save</button>
+</form>
+<%- include ('partials/footer.ejs') %>

@@ -1,40 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Awesome ToDoList Application</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/main.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Let's create your ToDo List! 🤘</h1>
+<%- include ('partials/header.ejs') %>
+<h1>Let's create your ToDo List! 🤘</h1>
 
-      <form class="new-task" action="/submit" method="POST">
-        <input
-          class="input"
-          type="text"
-          name="addTask"
-          id="addTask"
-          placeholder="Add a task"
-        />
-        <button type="submit" class="btn" id="submit">+</button>
-      </form>
-      <div>
-        <% if (locals.tasks) { %>
-        <ul>
-          <%tasks.forEach((task)=> { %>
-          <li><%=task %></li>
-          <%}) %>
-        </ul>
-        <% } %>
-      </div>
-    </div>
-  </body>
-</html>
+<form class="new-task" action="/submit" method="POST">
+  <input
+    class="input"
+    type="text"
+    name="addTask"
+    id="addTask"
+    placeholder="Add a task"
+  />
+  <button type="submit" class="btn" id="submit">+</button>
+</form>
+
+<div class="task-list">
+  <% if (locals.tasks) { %> <% tasks.forEach((task) => { %>
+  <div class="task">
+    <form action="/edit" method="POST">
+      <input
+        class="check"
+        type="checkbox"
+        name="taskCheckbox"
+        value="<%= tasks.indexOf(task)  %>"
+      /><%= task %>
+      <button class="edit" name="edit" value="<%= tasks.indexOf(task)  %>">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+      <input type="hidden" name="taskId" value="<%= tasks.indexOf(task) %>" />
+    </form>
+    <form action="/delete" method="POST">
+      <button class="delete" name="delete" value="<%= tasks.indexOf(task)  %>">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <input type="hidden" name="taskId" value="<%= tasks.indexOf(task) %>" />
+    </form>
+  </div>
+  <% }) %> <% } %>
+</div>
+<%- include ('partials/footer.ejs') %>
