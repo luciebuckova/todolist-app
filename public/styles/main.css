@@ -70,3 +70,8 @@ h1 {
   background-color: #bc38fe;
   border: 0;
 }
+
+.check:checked ~ span {
+  text-decoration: line-through;
+  color: gray;
+}

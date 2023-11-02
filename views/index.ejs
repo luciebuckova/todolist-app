@@ -7,21 +7,20 @@
     type="text"
     name="addTask"
     id="addTask"
-    placeholder="Add a task"
-  />
+    placeholder="Add a task" />
   <button type="submit" class="btn" id="submit">+</button>
 </form>
 
 <div class="task-list">
-  <% if (locals.tasks) { %> <% tasks.forEach((task) => { %>
+  <% if (locals.tasks) { %> <% tasks.forEach((task) => { if (task.length !== 0)
+  {%>
   <div class="task">
     <form action="/edit" method="POST">
       <input
         class="check"
         type="checkbox"
         name="taskCheckbox"
-        value="<%= tasks.indexOf(task)  %>"
-      /><%= task %>
+        value="<%= tasks.indexOf(task)  %>" /><span><%= task %></span>
       <button class="edit" name="edit" value="<%= tasks.indexOf(task)  %>">
         <i class="fa-solid fa-pen"></i>
       </button>
@@ -34,6 +33,6 @@
       <input type="hidden" name="taskId" value="<%= tasks.indexOf(task) %>" />
     </form>
   </div>
-  <% }) %> <% } %>
+  <% }}) %> <% } %>
 </div>
 <%- include ('partials/footer.ejs') %>
