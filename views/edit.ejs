@@ -1,13 +1,27 @@
 <%- include ('partials/header.ejs') %>
-<form class="edit-task" action="/update" method="POST">
-  <input
-    class="input"
-    type="text"
-    name="editedTask"
-    id="editedTask"
-    value="<%= tasks[task] %>"
-  />
-  <input type="hidden" name="taskId" value="<%= task %>" />
-  <button type="submit" class="btn" id="submit">Save</button>
-</form>
+<div
+  class="flex md:items-center justify-center h-screen bg-gradient-to-b from-blue-900 via-cyan-700 to-teal-500">
+  <div
+    class="h-fit md:h-5/6 text-white text-center p-8 md:px-16 md:py-32 my-16 w-11/12 max-w-screen-lg">
+    <h1
+      class="text-2xl md:text-6xl font-semibold mt-8 md:mt-0 mb-12 md:mb-24 text-slate-300">
+      Edit Your Task 🖍️
+    </h1>
+    <form class="flex gap-5" action="/update" method="POST">
+      <input
+        class="bg-white/25 p-2 rounded-xl placeholder:text-slate-300 w-full"
+        type="text"
+        name="editedTask"
+        id="editedTask"
+        value="<%= tasks[task] %>" />
+      <input type="hidden" name="taskId" value="<%= task %>" />
+      <button
+        type="submit"
+        class="bg-white text-blue-950 rounded-xl p-2 shrink-0 hover:scale-150 duration-200 flex place-content-center hover:bg-teal-400"
+        id="submit">
+        Save
+      </button>
+    </form>
+  </div>
+</div>
 <%- include ('partials/footer.ejs') %>

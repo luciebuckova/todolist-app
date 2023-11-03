@@ -1,38 +1,74 @@
 <%- include ('partials/header.ejs') %>
-<h1>Let's create your ToDo List! 🤘</h1>
+<div
+  class="flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 via-cyan-700 to-teal-500">
+  <div
+    class="h-fit md:h-5/6 text-white text-center bg-blue-950 p-8 md:px-16 md:py-32 rounded-2xl my-16 w-11/12 max-w-screen-lg">
+    <h1
+      class="text-2xl md:text-6xl font-bold my-8 md:mb-8 md:mt-0 text-teal-400">
+      Let's create your ToDo List! 🤘
+    </h1>
 
-<form class="new-task" action="/submit" method="POST">
-  <input
-    class="input"
-    type="text"
-    name="addTask"
-    id="addTask"
-    placeholder="Add a task" />
-  <button type="submit" class="btn" id="submit">+</button>
-</form>
+    <% const monthNames = ['January', 'February', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'] %> <%
+    const today = new Date(); const day = today.getUTCDate(); const month =
+    today.getMonth(); const year = today.getFullYear(); %>
+    <h2 class="text-lg md:text-2xl font-thin tracking-wider mb-12 md:mb-24">
+      🗓️ <%= monthNames[month - 1] %> <%= day %>, <%= year %>
+    </h2>
 
-<div class="task-list">
-  <% if (locals.tasks) { %> <% tasks.forEach((task) => { if (task.length !== 0)
-  {%>
-  <div class="task">
-    <form action="/edit" method="POST">
+    <form class="flex gap-5 mb-12" action="/submit" method="POST">
       <input
-        class="check"
-        type="checkbox"
-        name="taskCheckbox"
-        value="<%= tasks.indexOf(task)  %>" /><span><%= task %></span>
-      <button class="edit" name="edit" value="<%= tasks.indexOf(task)  %>">
-        <i class="fa-solid fa-pen"></i>
+        class="bg-white/25 p-2 rounded-xl placeholder:text-slate-300 w-full"
+        type="text"
+        name="addTask"
+        id="addTask"
+        placeholder="Add a task" />
+      <button
+        type="submit"
+        class="bg-white text-blue-950 w-9 h-9 rounded-full text-2xl shrink-0 hover:scale-150 duration-200 flex place-content-center hover:bg-teal-400"
+        id="submit">
+        +
       </button>
-      <input type="hidden" name="taskId" value="<%= tasks.indexOf(task) %>" />
     </form>
-    <form action="/delete" method="POST">
-      <button class="delete" name="delete" value="<%= tasks.indexOf(task)  %>">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-      <input type="hidden" name="taskId" value="<%= tasks.indexOf(task) %>" />
-    </form>
+
+    <div class="flex flex-col gap-5 mx-auto">
+      <% if (locals.tasks) { %> <% tasks.forEach((task) => { if (task.length !==
+      0) {%>
+      <div class="flex gap-3">
+        <form action="/edit" method="POST">
+          <input
+            class="h-4 w-4 check"
+            type="checkbox"
+            name="taskCheckbox"
+            value="<%= tasks.indexOf(task)  %>" /><span class="text-lg mx-2"
+            ><%= task %></span
+          >
+          <button
+            class="hover:scale-150 duration-200"
+            name="edit"
+            value="<%= tasks.indexOf(task)  %>">
+            <i class="fa-solid fa-pen text-lg hover:text-teal-400"></i>
+          </button>
+          <input
+            type="hidden"
+            name="taskId"
+            value="<%= tasks.indexOf(task) %>" />
+        </form>
+        <form action="/delete" method="POST">
+          <button
+            class="hover:scale-150 duration-200"
+            name="delete"
+            value="<%= tasks.indexOf(task)  %>">
+            <i class="fa-solid fa-trash text-lg hover:text-teal-400"></i>
+          </button>
+          <input
+            type="hidden"
+            name="taskId"
+            value="<%= tasks.indexOf(task) %>" />
+        </form>
+      </div>
+      <% }}) %> <% } %>
+    </div>
   </div>
-  <% }}) %> <% } %>
 </div>
 <%- include ('partials/footer.ejs') %>
